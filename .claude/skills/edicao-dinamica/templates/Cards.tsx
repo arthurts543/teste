@@ -5,7 +5,9 @@ import {ANCORA, FPS, termos} from './data';
 
 const {fontFamily} = loadFont('normal', {weights: ['400', '900'], subsets: ['latin', 'latin-ext']});
 
-const V = '#00DC0C';
+const V = '#E2B23C'; // dourado
+const O = '#FF7A1A'; // laranja
+const K = '#111111'; // preto
 const W = '#FFFFFF';
 const W2 = 'rgba(255,255,255,.45)';
 const W3 = 'rgba(255,255,255,.18)';
@@ -28,7 +30,7 @@ const Pessoa: React.FC<{x: number; y: number; r?: number; cor?: string}> = ({x, 
 const Moeda: React.FC<{x: number; y: number; r?: number; cor?: string; rotulo?: string}> = ({x, y, r = 13, cor = V, rotulo = '$'}) => (
   <g>
     <circle cx={x} cy={y} r={r} fill={cor} />
-    <text x={x} y={y + r * 0.38} {...txt(r * 1.05, 900, '#0a2a0c')}>{rotulo}</text>
+    <text x={x} y={y + r * 0.38} {...txt(r * 1.05, 900, K)}>{rotulo}</text>
   </g>
 );
 
@@ -44,7 +46,7 @@ const Roas: React.FC<{k: number}> = ({k}) => {
       {seta > 0.95 && <path d="M172 110 l-10 -7 v14 z" fill={W} />}
       <rect x={196} y={130 - h} width={62} height={h} rx={8} fill={V} style={{filter: `drop-shadow(0 0 8px ${V})`}} />
       <text x={227} y={152} {...txt(20, 400)}>volta R${Math.round(1 + 4 * g)}</text>
-      <text x={150} y={40} {...txt(34, 900, V)}>{(1 + 4 * g).toFixed(1).replace(".", ",")}x</text>
+      <text x={150} y={40} {...txt(34, 900, O)}>{(1 + 4 * g).toFixed(1).replace(".", ",")}x</text>
     </g>
   );
 };
@@ -54,7 +56,7 @@ const Cac: React.FC<{k: number}> = ({k}) => (
     <Pessoa x={232} y={98} r={1.6} />
     {[0, 1, 2].map((i) => {
       const t = ((k + i * 9) % 27) / 27;
-      return <rect key={i} x={30 + 150 * t} y={86 - Math.sin(t * Math.PI) * 26} width={34} height={20} rx={4} fill={V} opacity={1 - t * 0.6} />;
+      return <rect key={i} x={30 + 150 * t} y={86 - Math.sin(t * Math.PI) * 26} width={34} height={20} rx={4} fill={i % 2 ? O : V} opacity={1 - t * 0.6} />;
     })}
     <text x={150} y={156} {...txt(21, 400)}>R$ 50 por cliente</text>
   </g>
@@ -68,6 +70,7 @@ const Ltv: React.FC<{k: number}> = ({k}) => {
     <g>
       <line x1={24} y1={138} x2={280} y2={138} stroke={W3} strokeWidth={2} />
       <path d={path} fill="none" stroke={V} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - d} style={{filter: `drop-shadow(0 0 6px ${V})`}} />
+      <circle cx={24 + 252 * d} cy={130 - 96 * d} r={7} fill={O} />
       {['1º mês', '6º', '12º'].map((m, i) => <text key={m} x={[24, 150, 276][i]} y={160} {...txt(19, 400, W2)}>{m}</text>)}
       <text x={92} y={44} {...txt(28, 900)}>R$ {Math.round(1200 * d).toLocaleString('pt-BR')}</text>
     </g>
@@ -80,8 +83,8 @@ const Cpm: React.FC<{k: number}> = ({k}) => {
   return (
     <g>
       <path d="M70 80 Q150 20 230 80 Q150 140 70 80 Z" fill="none" stroke={W} strokeWidth={5} />
-      <circle cx={150} cy={80} r={24} fill={V} />
-      <circle cx={150} cy={80} r={10 * (0.6 + 0.4 * pisca)} fill="#0a2a0c" />
+      <circle cx={150} cy={80} r={24} fill={O} />
+      <circle cx={150} cy={80} r={10 * (0.6 + 0.4 * pisca)} fill={K} />
       <text x={150} y={150} {...txt(24, 900)}>{n.toLocaleString('pt-BR')} views</text>
     </g>
   );
@@ -97,8 +100,8 @@ const Cpa: React.FC<{k: number}> = ({k}) => {
       <circle cx={190} cy={138} r={8} fill={W} />
       <Moeda x={155} y={8 + 80 * drop} r={13} />
       <g opacity={check} transform={`translate(240 46) scale(${0.6 + 0.4 * check})`}>
-        <circle r={20} fill={V} />
-        <path d="M-9 0 l6 7 l12 -13" stroke="#0a2a0c" strokeWidth={5} fill="none" strokeLinecap="round" />
+        <circle r={20} fill={O} />
+        <path d="M-9 0 l6 7 l12 -13" stroke={K} strokeWidth={5} fill="none" strokeLinecap="round" />
       </g>
     </g>
   );
@@ -111,7 +114,7 @@ const Cpc: React.FC<{k: number}> = ({k}) => {
   const cx = 250 - 90 * mov, cy = 140 - 64 * mov;
   return (
     <g>
-      <rect x={70} y={56} width={160} height={46} rx={23} fill={clique > 0 && clique < 1 ? V : W3} stroke={W} strokeWidth={2} />
+      <rect x={70} y={56} width={160} height={46} rx={23} fill={clique > 0 && clique < 1 ? O : W3} stroke={W} strokeWidth={2} />
       <text x={150} y={86} {...txt(21, 900)}>Saiba mais</text>
       {clique > 0 && <circle cx={160} cy={78} r={10 + 40 * clique} fill="none" stroke={V} strokeWidth={3} opacity={1 - clique} />}
       <path d={`M${cx} ${cy} l0 34 l9 -9 l7 15 l7 -3 l-7 -15 l13 0 z`} fill={W} stroke="#000" strokeWidth={1.5} />
@@ -125,7 +128,7 @@ const Cpr: React.FC<{k: number}> = ({k}) => {
   const treme = voo >= 1 ? Math.sin(k) * 2 : 0;
   return (
     <g>
-      {[46, 32, 18].map((r, i) => <circle key={r} cx={200} cy={84} r={r} fill={i === 2 ? V : 'none'} stroke={i === 2 ? V : W} strokeWidth={5} />)}
+      {[46, 32, 18].map((r, i) => <circle key={r} cx={200} cy={84} r={r} fill={i === 2 ? O : i === 1 ? 'rgba(0,0,0,.35)' : 'none'} stroke={i === 2 ? O : i === 1 ? V : W} strokeWidth={5} />)}
       <g transform={`translate(${40 + 152 * voo + treme} 84)`}>
         <line x1={-50} y1={0} x2={0} y2={0} stroke={W} strokeWidth={5} strokeLinecap="round" />
         <path d="M0 0 l-12 -8 v16 z" fill={W} />
@@ -142,11 +145,11 @@ const Janela: React.FC<{k: number}> = ({k}) => {
     <g>
       <line x1={22} y1={92} x2={282} y2={92} stroke={W2} strokeWidth={3} />
       {Array.from({length: 8}).map((_, i) => <line key={i} x1={40 + i * 32} y1={86} x2={40 + i * 32} y2={98} stroke={W2} strokeWidth={2} />)}
-      <rect x={40} y={60} width={224 * abre} height={64} rx={10} fill="rgba(0,220,12,.18)" stroke={V} strokeWidth={3} />
+      <rect x={40} y={60} width={224 * abre} height={64} rx={10} fill="rgba(226,178,60,.18)" stroke={V} strokeWidth={3} />
       <circle cx={40} cy={92} r={10} fill={W} />
       <text x={40} y={146} {...txt(19, 400)}>clicou</text>
       <g opacity={compra}>
-        <circle cx={200} cy={92} r={12} fill={V} />
+        <circle cx={200} cy={92} r={12} fill={O} />
         <text x={200} y={146} {...txt(19, 400)}>comprou</text>
       </g>
       <text x={152} y={44} {...txt(22, 900, V)}>7 dias</text>
@@ -160,8 +163,8 @@ const BackEnd: React.FC<{k: number}> = ({k}) => (
       const a = p(k, 2 + i * 9, 10 + i * 9);
       return (
         <g key={r} opacity={a} transform={`translate(${60 + i * 90} 82) scale(${0.6 + 0.4 * a})`}>
-          <rect x={-32} y={-30} width={64} height={60} rx={12} fill={i === 0 ? W3 : V} stroke={W} strokeWidth={2} />
-          <text x={0} y={8} {...txt(22, 900, i === 0 ? W : '#0a2a0c')}>{r}</text>
+          <rect x={-32} y={-30} width={64} height={60} rx={12} fill={i === 0 ? W3 : i === 1 ? V : O} stroke={W} strokeWidth={2} />
+          <text x={0} y={8} {...txt(22, 900, i === 0 ? W : K)}>{r}</text>
         </g>
       );
     })}
@@ -178,18 +181,18 @@ const Cap: React.FC<{k: number}> = ({k}) => (
       const bloqueado = i === 3;
       return (
         <g key={i} opacity={a * (bloqueado ? 0.6 : 1)} transform={`translate(${116 + i * 48} 84)`}>
-          <rect x={-18} y={-26} width={36} height={52} rx={6} fill={bloqueado ? W3 : V} stroke={W} strokeWidth={2} />
+          <rect x={-18} y={-26} width={36} height={52} rx={6} fill={bloqueado ? 'rgba(0,0,0,.55)' : V} stroke={W} strokeWidth={2} />
           {bloqueado && <path d="M-14 -14 L14 14 M14 -14 L-14 14" stroke={W} strokeWidth={4} strokeLinecap="round" />}
         </g>
       );
     })}
-    <text x={170} y={150} {...txt(22, 900, V)}>máx. 3x</text>
+    <text x={170} y={150} {...txt(22, 900, O)}>máx. 3x</text>
   </g>
 );
 
 const Mix: React.FC<{k: number}> = ({k}) => {
   const fatias = [0.4, 0.3, 0.2, 0.1];
-  const cores = [V, W, W2, W3];
+  const cores = [V, O, W, K];
   const nomes = ['Meta', 'Google', 'YouTube', 'outros'];
   const prog = p(k, 0, 24);
   let acc = 0;
@@ -205,8 +208,8 @@ const Mix: React.FC<{k: number}> = ({k}) => {
       </g>
       {nomes.map((n, i) => (
         <g key={n} opacity={p(k, 4 + i * 4, 10 + i * 4)}>
-          <rect x={160} y={36 + i * 30} width={16} height={16} rx={4} fill={cores[i]} />
-          <text x={184} y={50 + i * 30} {...txt(19, 400)} textAnchor="start">{n} {Math.round(fatias[i] * 100)}%</text>
+          <rect x={146} y={36 + i * 30} width={16} height={16} rx={4} fill={cores[i]} stroke={W2} strokeWidth={1} />
+          <text x={168} y={50 + i * 30} {...txt(17, 400)} textAnchor="start">{n} {Math.round(fatias[i] * 100)}%</text>
         </g>
       ))}
     </g>
@@ -222,7 +225,7 @@ const Fadiga: React.FC<{k: number}> = ({k}) => {
       <text x={70} y={150} {...txt(20, 400)}>CTR caindo</text>
       <rect x={240} y={44} width={40} height={80} rx={8} fill="none" stroke={W} strokeWidth={4} />
       <rect x={252} y={36} width={16} height={8} rx={2} fill={W} />
-      <rect x={246} y={50 + 68 * (1 - nivel)} width={28} height={68 * nivel} rx={4} fill={nivel > 0.4 ? V : W2} />
+      <rect x={246} y={50 + 68 * (1 - nivel)} width={28} height={68 * nivel} rx={4} fill={nivel > 0.4 ? V : O} />
     </g>
   );
 };
@@ -234,13 +237,13 @@ const Horario: React.FC<{k: number}> = ({k}) => {
     <g>
       <circle cx={52} cy={74} r={38} fill="none" stroke={W} strokeWidth={5} />
       <line x1={52} y1={74} x2={52} y2={50} stroke={W} strokeWidth={5} strokeLinecap="round" />
-      <line x1={52} y1={74} x2={52 + 28 * Math.sin((ang * Math.PI) / 180)} y2={74 - 28 * Math.cos((ang * Math.PI) / 180)} stroke={V} strokeWidth={4} strokeLinecap="round" />
+      <line x1={52} y1={74} x2={52 + 28 * Math.sin((ang * Math.PI) / 180)} y2={74 - 28 * Math.cos((ang * Math.PI) / 180)} stroke={O} strokeWidth={4} strokeLinecap="round" />
       {alturas.map((h, i) => {
         const g = p(k, i * 1.5, 8 + i * 1.5);
         const pico = i === 9;
         return <rect key={i} x={110 + i * 15} y={120 - h * g} width={11} height={h * g} rx={3} fill={pico ? V : W2} />;
       })}
-      <text x={150} y={156} {...txt(21, 900, V)}>pico às 20h</text>
+      <text x={150} y={156} {...txt(21, 900, O)}>pico às 20h</text>
     </g>
   );
 };
@@ -255,7 +258,7 @@ const Funil: React.FC<{k: number}> = ({k}) => {
         const y = 22 + i * 44;
         return (
           <g key={n}>
-            <path d={`M${110 - w0 / 2} ${y} H${110 + w0 / 2} L${110 + w1 / 2} ${y + 40} H${110 - w1 / 2} Z`} fill={i === 2 ? V : i === 1 ? W2 : W3} stroke={W} strokeWidth={2} opacity={0.3 + 0.7 * a} />
+            <path d={`M${110 - w0 / 2} ${y} H${110 + w0 / 2} L${110 + w1 / 2} ${y + 40} H${110 - w1 / 2} Z`} fill={i === 2 ? V : i === 1 ? O : W3} stroke={W} strokeWidth={2} opacity={0.3 + 0.7 * a} />
             <text x={238} y={y + 22} {...txt(21, 900)} opacity={a}>{n}</text>
             <text x={238} y={y + 38} {...txt(16, 400, W2)} opacity={a}>{r}</text>
           </g>
@@ -273,10 +276,10 @@ const Api: React.FC<{k: number}> = ({k}) => (
     <line x1={98} y1={84} x2={204} y2={84} stroke={W2} strokeWidth={3} strokeDasharray="6 8" />
     {[0, 1, 2].map((i) => {
       const t = ((k + i * 8) % 24) / 24;
-      return <circle key={i} cx={100 + 104 * t} cy={84} r={7} fill={V} style={{filter: `drop-shadow(0 0 6px ${V})`}} />;
+      return <circle key={i} cx={100 + 104 * t} cy={84} r={7} fill={O} style={{filter: `drop-shadow(0 0 6px ${O})`}} />;
     })}
     <circle cx={246} cy={84} r={36} fill={V} />
-    <path d="M232 84 l9 10 l18 -20" stroke="#0a2a0c" strokeWidth={6} fill="none" strokeLinecap="round" />
+    <path d="M232 84 l9 10 l18 -20" stroke={K} strokeWidth={6} fill="none" strokeLinecap="round" />
     <text x={246} y={146} {...txt(19, 400)}>Meta</text>
   </g>
 );
