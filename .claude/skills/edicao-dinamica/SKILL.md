@@ -92,6 +92,19 @@ Todas com `spring` do Remotion (`damping 14–18`, `stiffness 180–220`, `mass 
 - **Logos de marcas:** PNG sem fundo, ~35–45 % da largura, sobre o peito, entrando em `slamIn` exatamente quando o nome é falado; 1–1,5 s cada; troca entre logos com glitch rápido (3–4 frames, faixas RGB). Use logos reais apenas como citação de exemplo, nunca sugerindo parceria.
 - **Glitch:** faixas horizontais deslocadas (8–14 faixas, deslocamento x aleatório ±30 %, separação RGB), 6–10 frames. Usado em: entrada de print, troca de logo.
 
+### 8.1 Cards de glass explicativos (preferência do Arthur)
+
+Todo elemento visual que **explica o conteúdo** (termo, conceito, número, processo) vai num **card de glassmorphism** feito no Remotion:
+
+- **Posição:** canto superior direito, ao lado da cabeça. **Centro vertical do card na linha do topo do cabelo**; borda esquerda ~55 px à direita da lateral da cabeça ("alguns centímetros" do rosto). Meça topo do cabelo/lateral da cabeça no bruto e faça o card **acompanhar os zooms** (`pos = âncora + (ponto − âncora) × escala`).
+- **Tamanho:** ~390 px de largura em 1080×1920 (sem passar de ~20 px da borda direita).
+- **Vidro:** `backdrop-filter: blur(20px) saturate(160%)`, fundo `linear-gradient(140deg, rgba(255,255,255,.26), rgba(255,255,255,.07) 55%, rgba(255,255,255,.12))`, borda 1,5 px branca 42 %, raio 34, sombra `0 24px 60px rgba(0,0,0,.30)` + brilho interno no topo.
+- **Conteúdo (de cima pra baixo):** nome do termo (Montserrat 900, MAIÚSCULA, até 60 px, quebra em 2 linhas) → descrição curta (Montserrat 400, ~25 px) → **visual animado** (SVG ~350×196) com pequenos motions: gráfico desenhando, contador, ícone pulsando, pacotes de dados correndo etc. Só branco, branco translúcido e verde `#00DC0C`.
+- **Motions do card:** entrada com spring + blur, flutuação leve (±5 px), reflexo de luz passando pelo vidro a cada ~3 s, conteúdo troca com blur-in a cada termo, saída com fade/blur.
+- **Topo central:** em listas, mostre **o nome do termo falado naquele instante** (não use contador "01/15").
+- Gancho de lista no topo: número verde contando + palavra em destaque + linha de apoio (ex.: "**15 TERMOS** / essenciais para não quebrar").
+- Biblioteca pronta de 15 visuais (ROAS, CAC, LTV, CPM, CPA, CPC, CPR, janela de atribuição, back-end, cap de frequência, mix de mídia, fadiga criativa, horário de eventos, funil, API de conversão) em `templates/Cards.tsx` — reutilize e adapte.
+
 ## 9. Som
 
 - **Sem música de fundo.**
