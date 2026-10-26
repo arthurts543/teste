@@ -105,6 +105,17 @@ Todo elemento visual que **explica o conteúdo** (termo, conceito, número, proc
 - Gancho de lista no topo: número verde contando + palavra em destaque + linha de apoio (ex.: "**15 TERMOS** / essenciais para não quebrar").
 - Biblioteca pronta de 15 visuais (ROAS, CAC, LTV, CPM, CPA, CPC, CPR, janela de atribuição, back-end, cap de frequência, mix de mídia, fadiga criativa, horário de eventos, funil, API de conversão) em `templates/Cards.tsx` — reutilize e adapte.
 
+### 8.2 Capa do Reels (padrão da referência)
+
+- **Fundo:** o próprio frame em **preto e branco**, contraste +15 %, brilho −18 %, blur leve (1,5 px).
+- **Pessoa:** recortada **em cor** por cima (rembg `birefnet-portrait`), com **contorno branco** suave (~6 px, 90 % opacidade). Olhando pra câmera, boca fechada, de preferência um frame **sem legenda gravada**. Ampliada ~1,3× e posicionada à **direita** (rosto em x ≈ 800–850); espelhe o frame se a pessoa estiver à esquerda.
+- **Texto à esquerda**, na altura do rosto (topo do bloco em y ≈ 560–600, x ≈ 64), encostando só na lateral do rosto, nunca cobrindo boca/barba:
+  - palavra-âncora em **Montserrat 700** grande (ex.: "**15**" 210 px / "PARE" ~105 px) + palavra fina **Montserrat 300** ao lado ("termos" / "de");
+  - linha em **Montserrat 200 MAIÚSCULA** ("ESSENCIAIS" / "IMPULSIONAR");
+  - fechamento: palavra fina pequena + **palavra em verde claro `#A6EE86` com glow verde** ("pra não **QUEBRAR**" / "a **ESCALAR**").
+- Fórmula de texto que funciona: "PARE de X / COMECE a Y" ou "N termos/erros ESSENCIAIS pra não Z" — mesma promessa do gancho do vídeo.
+- Tudo importante dentro do recorte **3:4 do grid** (y 240–1680). Template: `templates/Capa.tsx`.
+
 ## 9. Som
 
 - **Sem música de fundo.**
